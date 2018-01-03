@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+		<title>ProjectDB</title>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+		{{mymap.js}}
+    </head>
+    <body>
+        <h1>ProjectDB</h1>
+		<div class="new-entry">
+			<h2>New Project Entry</h2>
+			<div class="form">
+				<form action="." method="POST" enctype="multipart/form-data">
+					<div class="project-info">
+						<div class="field">
+							<p>Project Name</p>
+							<input type="text" name="name">
+						</div>
+						<div class="field">
+							<p>Project Number</p>
+							<input type="text" name="number">
+						</div>
+						<div class="field">
+							<p>Year</p>
+							<input type="text" name="year">
+						</div>
+					</div>
+					<div class="use-info">
+						<div class="field">
+							<p>Land Use(s) - Use 1, Use 2, etc.</p>
+							<input type="text" name="uses">
+						</div>
+					</div>
+					<div class="location-info">
+						<div class="field">
+							<p>Latitude</p>
+							<input id="lat-text" type="text" name="lat">
+						</div>
+						<div class="field">
+							<p>Longitude</p>
+							<input id="lng-text" type="text" name="lng">
+						</div>
+						<input id="loc-button" type="button" name="loc-button" value="+"/>
+					</div>
+					<div class="file-info">
+						<div class="field">
+							<p>File</p>
+							<input id="file-upload" type="file" name="file">
+						</div>
+					</div>
+					<div class="submit-button">
+						<input id="submit" type="submit" name="my-form" value="Submit">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="project-map">
+			<h2>Project Map</h2>
+			<div class="map">
+				{{mymap.html}}
+			</div>
+		</div>
+		<h2>Project Table</h2>
+		<div class="project-table">
+			<div class="table-header">
+				<table>
+					<tr>
+						<td width="100px">Project</td>
+						<td width="50px">Number</td>
+						<td width="25px">Year</td>
+						<td width="70px">Use(s)</td>
+						<td width="100px">File(s)</td>
+					</tr>
+				</table>
+			</div>
+			<div class="table-body">
+				<table>
+				{% for item in data %}
+					<tr>
+						<td width="100px" style="text-align:left;">{{item[0]}}</td>
+						<td width="50px">{{item[1]}}</td>
+						<td width="25px">{{item[2]}}</td>
+						<td width="70px">{{item[3]}}</td>
+						<td width="100px" style="text-align:left;">{{item[6]}}</td>
+					</tr>
+				{% endfor %}
+				</table>
+			</div>
+		</div>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+	</body>
+</html>

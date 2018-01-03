@@ -1,0 +1,29 @@
+p {
+	margin: 0px;
+}
+
+table {
+	table-layout: fixed;
+	width: 600px;
+}
+
+td {
+    border: 1px solid black;
+    overflow: hidden;
+	text-align: center;
+}
+
+.field {
+	display: inline-block;
+}
+
+.table-header {
+	font-weight: bold;
+}
+
+.table-body {
+	height:100px;
+	width: 625px;
+	overflow:auto;
+}
+
