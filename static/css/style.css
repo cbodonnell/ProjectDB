@@ -1,20 +1,85 @@
+/* GLOBAL */
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
 p {
 	margin: 0px;
 }
 
 table {
 	table-layout: fixed;
-	width: 600px;
+	width: 100%;
 }
 
 td {
     border: 1px solid black;
     overflow: hidden;
 	text-align: center;
+	font-size: 12px;
+}
+
+/* ENTRY FORM */
+
+.form {
+    text-align: center;
+}
+
+.project-info {
+    margin: 0px 0px 15px 0px;
+}
+
+.use-info {
+    margin: 0px 0px 15px 0px;
+}
+
+.location-info {
+    margin: 0px 0px 15px 0px;
+}
+
+.file-info {
+    margin: 0px 0px 30px 0px;
 }
 
 .field {
 	display: inline-block;
+}
+
+.submit-button {
+    margin: 0px 0px 15px 0px;
+}
+
+#submit {
+    background-color: #008CBA; /* Blue */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+/* MAP and TABLE */
+
+.map-wrapper {
+    width: 100%;
+    margin: 0px auto;
+}
+
+.project-map {
+    width: 70%;
+    float: left;
+}
+
+.project-table {
+    width: 30%;
+    float:right;
 }
 
 .table-header {
@@ -22,8 +87,6 @@ td {
 }
 
 .table-body {
-	height:100px;
-	width: 625px;
-	overflow:auto;
+	height:600px;
+	overflow: auto;
 }
-

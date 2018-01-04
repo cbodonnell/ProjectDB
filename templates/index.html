@@ -24,7 +24,7 @@
 						</div>
 						<div class="field">
 							<p>Year</p>
-							<input type="text" name="year" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+							<input type="text" name="year" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 						</div>
 					</div>
 					<div class="use-info">
@@ -46,7 +46,7 @@
 					</div>
 					<div class="file-info">
 						<div id="file-field" class="field">
-							<p>File</p>
+							<p>File(s)</p>
 							<div>
 								<input type="file" name="file-1">
 							</div>
@@ -61,35 +61,37 @@
 				</form>
 			</div>
 		</div>
-		<div class="project-map">
-			<h2>Project Map</h2>
-			<div class="map">
-				{{mymap.html}}
+		<div class="map-wrapper">
+			<div class="project-map">
+				<h2>Project Map</h2>
+				<div class="map">
+					{{mymap.html}}
+				</div>
 			</div>
-		</div>
-		<h2>Project Table</h2>
-		<div class="project-table">
-			<div class="table-header">
-				<table>
-					<tr>
-						<td width="100px">Project</td>
-						<td width="50px">Number</td>
-						<td width="25px">Year</td>
-						<td width="70px">Land Use(s)</td>
-					</tr>
-				</table>
-			</div>
-			<div class="table-body">
-				<table>
-				{% for item in data %}
-					<tr>
-						<td width="100px" style="text-align:left;">{{item[0]}}</td>
-						<td width="50px">{{item[1]}}</td>
-						<td width="25px">{{item[2]}}</td>
-						<td width="70px">{{item[3]}}</td>
-					</tr>
-				{% endfor %}
-				</table>
+			<div class="project-table">
+				<h2>Project Table</h2>
+				<div class="table-header">
+					<table>
+						<tr>
+							<td width="40%">Project</td>
+							<td width="20%">Number</td>
+							<td width="10%">Year</td>
+							<td width="30%">Land Use(s)</td>
+						</tr>
+					</table>
+				</div>
+				<div class="table-body">
+					<table>
+					{% for item in data %}
+						<tr>
+							<td width="40%" style="text-align:left;">{{item[0]}}</td>
+							<td width="20%">{{item[1]}}</td>
+							<td width="10%">{{item[2]}}</td>
+							<td width="30%">{{item[3]}}</td>
+						</tr>
+					{% endfor %}
+					</table>
+				</div>
 			</div>
 		</div>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
