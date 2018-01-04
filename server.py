@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 # Import modules
 import sqlite3
-import os.path
+import os
 from werkzeug.utils import secure_filename
 
 GoogleMaps(app, key="AIzaSyCXQrHx19mk6AFy8wny93mhdBslSNxptbw")
@@ -25,7 +25,7 @@ ALLOWED_EXTENSIONS = set(['pdf', 'xls', 'xlsx', 'doc', 'docx', 'ppt', 'pptx'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Assign a function to a URL
-# Google Maps example
+# Index function
 @app.route("/")
 def mapview():
 
@@ -46,10 +46,10 @@ def mapview():
                         lat decimal,
                         lng decimal,
 			filePath text)''')
-        sampleData = [('Kings/Flatbush Parking', '26179.00', 2017, 'Destination Retail', 40.6460, -73.9561, 'example.pdf'),
-                      ('Bobover School', '29586.00', 2017, 'School K-5', 40.6412, -73.9837, 'example.pdf'),
-                      ('Lower Concourse North', '29753.00', 2016, 'Residential, Local Retail, Open Space', 40.8197, -73.9310, 'example.pdf')]    
-        c.executemany('INSERT INTO projects VALUES (?,?,?,?,?,?,?)', sampleData)
+##        sampleData = [('Kings/Flatbush Parking', '26179.00', 2017, 'Destination Retail', 40.6460, -73.9561, 'example.pdf'),
+##                      ('Bobover School', '29586.00', 2017, 'School K-5', 40.6412, -73.9837, 'example.pdf'),
+##                      ('Lower Concourse North', '29753.00', 2016, 'Residential, Local Retail, Open Space', 40.8197, -73.9310, 'example.pdf')]    
+##        c.executemany('INSERT INTO projects VALUES (?,?,?,?,?,?,?)', sampleData)
         conn.commit()
 
     # Generate map and grab data
@@ -57,33 +57,44 @@ def mapview():
     
     return render_template('index.html', mymap=mymap, data=data)
 
-# Function to run when button is pressed
+# Function to run when form is submitted
 @app.route("/", methods=['POST'])
 def hello_data():
+
+    name = request.form['name']
+    number = request.form['number']
+    if number == '':
+        number = 'n/a'
+    try:
+        year = int(request.form['year'])
+    except ValueError:
+        year = ''
+    uses = request.form['uses']
+    if uses == '':
+        uses = 'n/a'
+    lat = float(request.form['lat'])
+    lng = float(request.form['lng'])
     
     # check if the post request has the file part
-    if 'file' not in request.files:
+    if 'file-1' not in request.files:
         flash('No file part')
     else:
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        files = []
+        for key in request.files:   
+            file = request.files[key]
+            if file and allowed_file(file.filename):
+                if not os.path.exists(UPLOAD_FOLDER + '\\' + name):
+                    os.makedirs(UPLOAD_FOLDER + '\\' + name)
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], name, filename))
+                files.append(file)
 
     conn = sqlite3.connect('data.db')
     c = conn.cursor()
 
-    name = request.form['name']
-    number = request.form['number']
-    year = int(request.form['year'])
-    uses = request.form['uses']
-    lat = float(request.form['lat'])
-    lng = float(request.form['lng'])
-    filePath = file.filename.replace(' ', '_')
+    filePaths = []
+    for file in files:
+        filePaths.append(file.filename.replace(' ', '_'))
 
     c.execute('INSERT INTO projects VALUES (?,?,?,?,?,?,?)',
               (name,
@@ -92,34 +103,10 @@ def hello_data():
                uses,
                lat,
                lng,
-               filePath))
+               ', '.join(filePaths)))
     conn.commit()
 
-    # Generate map and grab data
-    mymap, data = generate_map(conn, c)
-    
-    return render_template('index.html', mymap=mymap, data=data)
-
-'''
-# File upload
-@app.route('/upload/', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(request.url)
-'''
+    return redirect(request.url)
     
 # Function to generate map from DB
 def generate_map(conn, c):
@@ -129,9 +116,17 @@ def generate_map(conn, c):
     conn.close()
     results = []
     for row in rows:
+        fileEntry = ""
+        for file in row[6].split(", "):
+            fileEntry += '<div><a href="static/projectfiles/%s/%s" target="_blank">%s</a></div>' % (row[0], file, file.split("/")[-1])
+        year = row[2]
+        if year == '':
+            yearEntry = ''
+        else:
+            yearEntry = ' (%s)' % year
         entry = {'lat': row[4],
                  'lng': row[5],
-                 'infobox': '<h3>%s (%s)</h3><p>Project #: %s</p><p>Land Use: %s</p><a href="static/projectfiles/%s" target="_blank">%s</a>' % (row[0], row[2], row[1], row[3], row[6], row[6].split("/")[-1])}
+                 'infobox': '<h3>%s%s</h3><p>Project #: %s</p><p>Land Use: %s</p>%s' % (row[0], yearEntry, row[1], row[3], fileEntry)}
         results.append(entry)
     
     # creating a map in the view

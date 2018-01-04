@@ -4,6 +4,7 @@
 		<title>ProjectDB</title>
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		{{mymap.js}}
     </head>
     <body>
@@ -15,7 +16,7 @@
 					<div class="project-info">
 						<div class="field">
 							<p>Project Name</p>
-							<input type="text" name="name">
+							<input id="inputName" type="text" name="name" required>
 						</div>
 						<div class="field">
 							<p>Project Number</p>
@@ -23,7 +24,7 @@
 						</div>
 						<div class="field">
 							<p>Year</p>
-							<input type="text" name="year">
+							<input type="text" name="year" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
 						</div>
 					</div>
 					<div class="use-info">
@@ -35,18 +36,23 @@
 					<div class="location-info">
 						<div class="field">
 							<p>Latitude</p>
-							<input id="lat-text" type="text" name="lat">
+							<input id="lat-text" type="text" name="lat" required>
 						</div>
 						<div class="field">
 							<p>Longitude</p>
-							<input id="lng-text" type="text" name="lng">
+							<input id="lng-text" type="text" name="lng" required>
 						</div>
 						<input id="loc-button" type="button" name="loc-button" value="+"/>
 					</div>
 					<div class="file-info">
-						<div class="field">
+						<div id="file-field" class="field">
 							<p>File</p>
-							<input id="file-upload" type="file" name="file">
+							<div>
+								<input type="file" name="file-1">
+							</div>
+						</div>
+						<div>
+							<input id="file-button" type="button" name="file-button" value="New File"/>
 						</div>
 					</div>
 					<div class="submit-button">
@@ -69,8 +75,7 @@
 						<td width="100px">Project</td>
 						<td width="50px">Number</td>
 						<td width="25px">Year</td>
-						<td width="70px">Use(s)</td>
-						<td width="100px">File(s)</td>
+						<td width="70px">Land Use(s)</td>
 					</tr>
 				</table>
 			</div>
@@ -82,7 +87,6 @@
 						<td width="50px">{{item[1]}}</td>
 						<td width="25px">{{item[2]}}</td>
 						<td width="70px">{{item[3]}}</td>
-						<td width="100px" style="text-align:left;">{{item[6]}}</td>
 					</tr>
 				{% endfor %}
 				</table>
