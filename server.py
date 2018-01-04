@@ -69,15 +69,11 @@ def hello_data():
 
     name = request.form['name']
     number = request.form['number']
-    if number == '':
-        number = 'n/a'
     try:
         year = int(request.form['year'])
     except ValueError:
         year = ''
     uses = request.form['uses']
-    if uses == '':
-        uses = 'n/a'
     lat = float(request.form['lat'])
     lng = float(request.form['lng'])
 
@@ -128,7 +124,7 @@ def generate_map(conn, c):
         if number == '':
             numberEntry = ''
         else:
-            numberEntry = '<p>Project #: %s</p>'
+            numberEntry = '<p>Project #: %s</p>' % number
         if year == '':
             yearEntry = ''
         else:
