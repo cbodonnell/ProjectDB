@@ -49,6 +49,7 @@ def mapview():
         conn = sqlite3.connect('data.db')
         c = conn.cursor()
         c.execute('''CREATE TABLE projects(
+                        id integer primary key autoincrement,
                         name text,
                         num text,
                         year int,
@@ -58,8 +59,11 @@ def mapview():
                         filePath text)''')
         conn.commit()
 
+    # Set query
+    query = INITIAL_QUERY
+
     # Generate map and grab data
-    mymap, data = generate_map(conn, c)
+    mymap, data = generate_map(conn, c, query)
     
     return render_template('index.html', mymap=mymap, data=data)
 
@@ -97,8 +101,9 @@ def hello_data():
         for file in files:
             filePaths.append(file.filename.replace(' ', '_'))
 
-        c.execute('INSERT INTO projects VALUES (?,?,?,?,?,?,?)',
-                  (name,
+        c.execute('INSERT INTO projects VALUES (?,?,?,?,?,?,?,?)',
+                  (None,
+                   name,
                    number,
                    year,
                    uses,
@@ -109,21 +114,38 @@ def hello_data():
 
         return redirect(request.url)
 
+    # Handle deletions
+    elif RepresentsInt(request.form['submit']):
+            
+        project_id = request.form['submit']
+
+        conn = sqlite3.connect('data.db')
+        c = conn.cursor()
+
+        c.execute('DELETE FROM projects WHERE id=?',
+                  (project_id,))
+        conn.commit()
+        
+        return redirect(request.url)
+
+    else:
+        print('This should not print!')
+
 # --- FUNCTIONS ---
 
 # Function to generate map from DB
-def generate_map(conn, c):
+def generate_map(conn, c, query):
     # Queries the database and creates a results array of marker dictionaries
-    c.execute(INITIAL_QUERY)
+    c.execute(query)
     rows = c.fetchall()
     conn.close()
     results = []
     for row in rows:
-        name = row[0]
-        number = row[1]
-        year = row[2]
-        use = row[3]
-        files = row[6]
+        name = row[1]
+        number = row[2]
+        year = row[3]
+        use = row[4]
+        files = row[7]
         if number == '':
             numberEntry = ''
         else:
@@ -139,8 +161,8 @@ def generate_map(conn, c):
         fileEntry = ''
         for file in files.split(", "):
             fileEntry += '<div><a href="static/projectfiles/%s/%s" target="_blank">%s</a></div>' % (name, file, file.split("/")[-1])
-        entry = {'lat': row[4],
-                 'lng': row[5],
+        entry = {'lat': row[5],
+                 'lng': row[6],
                  'infobox': '<h3>%s%s</h3>%s%s%s' % (name, yearEntry, numberEntry, useEntry, fileEntry)}
         results.append(entry)
     
@@ -160,6 +182,14 @@ def generate_map(conn, c):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# Function to check if string contains an integer
+def RepresentsInt(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
 
 # --- MAIN FUNCTION ---
 
