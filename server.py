@@ -88,7 +88,7 @@ def hello_data():
                     os.makedirs(UPLOAD_FOLDER + '\\' + name)
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], name, filename))
-                files.append(file)all
+                files.append(file)
 
         conn = sqlite3.connect('data.db')
         c = conn.cursor()
