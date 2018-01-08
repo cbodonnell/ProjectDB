@@ -8,7 +8,7 @@ Map showing project locations. <br />
 ## New Project Entry Form
 Form allows new projects to be added to the database.  Name and location are required fields.  Others fields are optional.  Files can also be attached to each project entry and are uploaded to the server. 
 
-If the "+" button is clicked, the user can then click on the map to populate the location fields.<br />
+If the "+" button is clicked, the user can click on the map to populate the coordinate fields. <br />
 ![entry_form](https://user-images.githubusercontent.com/17422963/34682098-e55cd684-f46b-11e7-96a9-313c215e1b76.JPG)
 
 ## Map Infobox
