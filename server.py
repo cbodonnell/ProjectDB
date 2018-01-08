@@ -67,44 +67,47 @@ def mapview():
 @app.route("/", methods=['POST'])
 def hello_data():
 
-    name = request.form['name']
-    number = request.form['number']
-    try:
-        year = int(request.form['year'])
-    except ValueError:
-        year = ''
-    uses = request.form['uses']
-    lat = float(request.form['lat'])
-    lng = float(request.form['lng'])
+    # Handle input from entry form
+    if request.form['submit'] == 'Submit':
+        
+        name = request.form['name']
+        number = request.form['number']
+        try:
+            year = int(request.form['year'])
+        except ValueError:
+            year = ''
+        uses = request.form['uses']
+        lat = float(request.form['lat'])
+        lng = float(request.form['lng'])
 
-    files = []
-    for key in request.files:
-        file = request.files[key]
-        if file and allowed_file(file.filename):
-            if not os.path.exists(UPLOAD_FOLDER + '\\' + name):
-                os.makedirs(UPLOAD_FOLDER + '\\' + name)
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], name, filename))
-            files.append(file)
+        files = []
+        for key in request.files:
+            file = request.files[key]
+            if file and allowed_file(file.filename):
+                if not os.path.exists(UPLOAD_FOLDER + '\\' + name):
+                    os.makedirs(UPLOAD_FOLDER + '\\' + name)
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], name, filename))
+                files.append(file)all
 
-    conn = sqlite3.connect('data.db')
-    c = conn.cursor()
+        conn = sqlite3.connect('data.db')
+        c = conn.cursor()
 
-    filePaths = []
-    for file in files:
-        filePaths.append(file.filename.replace(' ', '_'))
+        filePaths = []
+        for file in files:
+            filePaths.append(file.filename.replace(' ', '_'))
 
-    c.execute('INSERT INTO projects VALUES (?,?,?,?,?,?,?)',
-              (name,
-               number,
-               year,
-               uses,
-               lat,
-               lng,
-               ', '.join(filePaths)))
-    conn.commit()
+        c.execute('INSERT INTO projects VALUES (?,?,?,?,?,?,?)',
+                  (name,
+                   number,
+                   year,
+                   uses,
+                   lat,
+                   lng,
+                   ', '.join(filePaths)))
+        conn.commit()
 
-    return redirect(request.url)
+        return redirect(request.url)
 
 # --- FUNCTIONS ---
 

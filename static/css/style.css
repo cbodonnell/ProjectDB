@@ -1,5 +1,9 @@
 /* GLOBAL */
 
+* {
+	font-family: Arial;
+}
+
 h1 {
     text-align: center;
 }
@@ -50,13 +54,16 @@ td {
 	display: inline-block;
 }
 
+/* SUBMIT BUTTON */
+
 .submit-button {
     margin: 0px 0px 15px 0px;
 }
 
 #submit {
-    background-color: #008CBA; /* Blue */
-    border: none;
+    background-color: #3582ff; /* Blue */
+    border: 1px solid black;
+	border-radius: 4px;
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -65,11 +72,18 @@ td {
     font-size: 16px;
 }
 
+#submit:hover {
+	background-color: #5e9aff;
+	cursor: pointer;
+}
+
 /* MAP and TABLE */
 
 .map-wrapper {
     width: 100%;
     margin: 0px auto;
+	display:block;
+	overflow:auto;
 }
 
 .project-map {
@@ -84,9 +98,18 @@ td {
 
 .table-header {
 	font-weight: bold;
+	height: 22px;
 }
 
 .table-body {
-	height:600px;
+	height:578px;
 	overflow: auto;
+}
+
+/* FOOTER */
+
+.footer {
+	padding: 25px 0px 10px 0px;
+	text-align: center;
+	font-size: 12px;
 }
