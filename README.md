@@ -12,11 +12,17 @@ If the "+" button is clicked, the user can click on the map to populate the coor
 ![entry_form](https://user-images.githubusercontent.com/17422963/34682098-e55cd684-f46b-11e7-96a9-313c215e1b76.JPG)
 
 ## Map Infobox
-Contains project information along with links to any project files. <br />
+Contains project information along with links to any project files. <br /> <br />
 ![infobox](https://user-images.githubusercontent.com/17422963/34682104-e7f84cfc-f46b-11e7-9ad4-8822ca6cd02c.JPG)
 
+## Project Table
+Table showing each project in the query (for now all projects).
+
+If the "X" button is clicked, the user is asked whether they want to delete the project. If so, the project is removed from the database.<br />
+![project_table](https://user-images.githubusercontent.com/17422963/34693553-1b73d58a-f492-11e7-8a9d-32924a013369.JPG)
+
 ## TODO
-- Change the land use field to a dropdown to ensure uniformity of land uses (allow multiple uses similar to file field) 
+- Change the land use field to a dropdown to ensure uniformity of land uses (allow multiple uses similar to file field)
+    - Would require the creation of a land use database
 - Add query form to search the database and narrow down results
-- Improve the project table to allow users to delete project entries (with a confirmation!)
 - Add requirements.txt
