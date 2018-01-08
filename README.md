@@ -19,3 +19,4 @@ Contains project information along with links to any project files. <br />
 - Change the land use field to a dropdown to ensure uniformity of land uses (allow multiple uses similar to file field) 
 - Add query form to search the database and narrow down results
 - Improve the project table to allow users to delete project entries (with a confirmation!)
+- Add requirements.txt
