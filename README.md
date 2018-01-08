@@ -14,3 +14,8 @@ If the "+" button is clicked, the user can then click on the map to populate the
 ## Map Infobox
 Contains project information along with links to any project files. <br />
 ![infobox](https://user-images.githubusercontent.com/17422963/34682104-e7f84cfc-f46b-11e7-9ad4-8822ca6cd02c.JPG)
+
+## TODO
+- Change the land use field to a dropdown to ensure uniformity of land uses (allow multiple uses similar to file field) 
+- Add query form to search the database and narrow down results
+- Improve the project table to allow users to delete project entries (with a confirmation!)
