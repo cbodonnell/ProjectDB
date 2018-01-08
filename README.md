@@ -19,7 +19,7 @@ Contains project information along with links to any project files. <br /> <br /
 Table showing each project in the query (for now all projects).
 
 If the "X" button is clicked, the user is asked whether they want to delete the project. If so, the project is removed from the database.<br />
-![project_table](https://user-images.githubusercontent.com/17422963/34693553-1b73d58a-f492-11e7-8a9d-32924a013369.JPG)
+![project_table](https://user-images.githubusercontent.com/17422963/34694065-cbcb5b1e-f493-11e7-88be-30c6a0f53989.JPG)
 
 ## TODO
 - Change the land use field to a dropdown to ensure uniformity of land uses (allow multiple uses similar to file field)
