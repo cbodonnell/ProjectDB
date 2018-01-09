@@ -16,6 +16,21 @@ $('#inputName').keypress(function (e) {
 	}
 });
 
+// Numbers only in location fields
+$('#lat-text').keypress(function (e) {
+	var txt = String.fromCharCode(e.which);
+	if (!txt.match(/[0-9.]/)) {
+		return false;
+	}
+});
+
+$('#lng-text').keypress(function (e) {
+	var txt = String.fromCharCode(e.which);
+	if (!txt.match(/[0-9.-]/)) {
+		return false;
+	}
+});
+
 // Coordinates button
 document.getElementById('loc-button').onclick = function() {
 	locButtonClicked = true;
