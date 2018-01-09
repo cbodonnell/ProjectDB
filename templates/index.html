@@ -33,7 +33,20 @@
 					<div class="use-info">
 						<div class="field">
 							<p>Land Use(s) - Use 1, Use 2, etc.</p>
+							<!-- 
 							<input type="text" name="uses">
+							-->
+							<div id="use-field">
+								<select name="uses" id="lane-use-selection" onchange="showfield(this.options[this.selectedIndex].value)">
+									<option selected="selected">Please select ...</option>
+									<option value="Plane">Plane</option>
+									<option value="Train">Train</option>
+									<option value="Own Vehicle">Own Vehicle</option>
+									<option value="Other">Other</option>
+								</select>
+								<div id="other 1"></div>
+							</div>
+							<input id="use-button" type="button" name="use-button" value="Add Use"/>
 						</div>
 					</div>
 					<div class="location-info">

@@ -73,6 +73,7 @@ def hello_data():
 
     # Handle input from entry form
     if request.form['submit'] == 'Submit':
+        print(request.form)
         
         name = request.form['name']
         number = request.form['number']
