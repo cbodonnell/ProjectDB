@@ -28,7 +28,34 @@ td {
 	font-size: 12px;
 }
 
+/* FORM TOGGLE BUTTONS */
+
+.toggle-form-buttons {
+	text-align: center;
+}
+
+.new-entry-button  {
+	background-color: #3582ff; /* Blue */
+    border: 1px solid black;
+	border-radius: 4px;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.new-entry-button:hover {
+	background-color: #5e9aff;
+	cursor: pointer;
+}
+
 /* ENTRY FORM */
+
+.new-entry {
+	display: none;
+}
 
 .form {
     text-align: center;
@@ -110,8 +137,21 @@ td {
 	background-color: #5e9aff;
 }
 
+#delete {
+	background-color: white;
+    border: 1px solid black;
+	border-radius: 12px;
+    color: red;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+}
+
 #delete:hover {
 	cursor: pointer;
+	background-color: red;
+	color: white;
 }
 
 /* FOOTER */

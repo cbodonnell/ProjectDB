@@ -1,6 +1,13 @@
 var locButtonClicked = false;
 var numFiles = 1;
 
+$(".new-entry-button").click(function () {
+	$content = $(".new-entry");
+	//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+    $content.slideToggle(500, function () {
+    });
+});
+
 // Letters and numbers only in project name (for filing purposes)
 $('#inputName').keypress(function (e) {
 	var txt = String.fromCharCode(e.which);
