@@ -115,6 +115,7 @@ def hello_data():
         return redirect(request.url)
 
     # Handle deletions
+    # TODO: Delete project files as well!!
     elif RepresentsInt(request.form['submit']):
             
         project_id = request.form['submit']
@@ -161,7 +162,8 @@ def generate_map(conn, c, query):
         fileEntry = ''
         for file in files.split(", "):
             fileEntry += '<div><a href="static/projectfiles/%s/%s" target="_blank">%s</a></div>' % (name, file, file.split("/")[-1])
-        entry = {'lat': row[5],
+        entry = {'title': str(row[0]),
+                 'lat': row[5],
                  'lng': row[6],
                  'infobox': '<h3>%s%s</h3>%s%s%s' % (name, yearEntry, numberEntry, useEntry, fileEntry)}
         results.append(entry)

@@ -3,10 +3,10 @@ var numFiles = 1;
 
 // Letters and numbers only in project name (for filing purposes)
 $('#inputName').keypress(function (e) {
-    var txt = String.fromCharCode(e.which);
-    if (!txt.match(/[A-Za-z0-9&._- ]/)) {
-        return false;
-    }
+	var txt = String.fromCharCode(e.which);
+	if (!txt.match(/[A-Za-z0-9&._- ]/)) {
+		return false;
+	}
 });
 
 // Coordinates button

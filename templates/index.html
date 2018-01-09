@@ -83,7 +83,7 @@
 				<div class="table-body">
 					<table>
 					{% for item in data %}
-						<tr id="">
+						<tr id="{{item[0]}}" class="table-row" onclick='rowClick(this)'>
 							<td width="40%" style="text-align:left;">{{item[1]}}</td>
 							<td width="16%">{{item[2]}}</td>
 							<td width="10%">{{item[3]}}</td>
